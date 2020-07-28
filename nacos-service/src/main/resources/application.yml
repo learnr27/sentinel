@@ -1,0 +1,32 @@
+server:
+  port: 8003
+
+spring:
+  application:
+    name: sentinel-nacos-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.33.88:8848
+    sentinel:
+      transport:
+        port: 18003
+        dashboard: 192.168.33.88:8080
+      datasource:
+        flow:
+          nacos:
+            serverAddr: 192.168.33.88:8848
+            dataId: ${spring.application.name}-flow-rules
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow
+        degrade:
+          nacos:
+            serverAddr: 192.168.33.88:8848
+            dataId: ${spring.application.name}-degrade-rules
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: degrade
+feign:
+  sentinel:
+    enabled: true

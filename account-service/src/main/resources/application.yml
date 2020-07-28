@@ -1,0 +1,25 @@
+server:
+  port: 8002
+
+spring:
+  application:
+    name: sentinel-account-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.33.88:8848
+    sentinel:
+      transport:
+        port: 18002
+        dashboard: 192.168.33.88:8080
+      datasource:
+        ds1:
+          nacos:
+            serverAddr: 192.168.33.88:8848
+            dataId: ${spring.application.name}
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow
+feign:
+  sentinel:
+    enabled: true
